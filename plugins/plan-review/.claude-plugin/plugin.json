@@ -1,0 +1,15 @@
+{
+  "name": "plan-review",
+  "version": "0.1.0",
+  "description": "Plan-and-review pattern: after plan mode produces a plan, a fresh-context subagent critiques it for gaps, blind spots, and ordering issues before any code is written",
+  "author": {
+    "name": "Tribe Coding"
+  },
+  "license": "MIT",
+  "commands": [
+    "./commands/"
+  ],
+  "skills": [
+    "./skills/"
+  ]
+}
