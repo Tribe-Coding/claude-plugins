@@ -29,6 +29,12 @@ case "$HOOKS_DIR" in
   *)  HOOK_FILE="$PROJECT_DIR/$HOOKS_DIR/pre-commit" ;;
 esac
 
+# A tracked hook belongs to the repo. Editing it would dirty the working tree on
+# every session, and repos that chain .git/hooks from it already run local hooks.
+if git -C "$PROJECT_DIR" ls-files --error-unmatch -- "$HOOK_FILE" > /dev/null 2>&1; then
+  exit 0
+fi
+
 mkdir -p "$(dirname "$HOOK_FILE")"
 
 MARKER_BEGIN="# >>> tribe-coding/plantuml >>>"

@@ -270,6 +270,7 @@ Plugins that install git hooks (pre-commit, pre-push, etc.) **must not overwrite
 **Rules:**
 
 - **Respect `core.hooksPath`** — read the existing value with `git config --local core.hooksPath`. Only set it when no value is configured.
+- **Never edit a tracked hook file** — if the resolved hook file is tracked by git (`git ls-files --error-unmatch`), skip installation. The repo owns that file; injecting into it leaves the working tree dirty on every session.
 - **Variable namespacing** — prefix all variables with uppercase plugin name (e.g., `PLANTUML_STAGED_MD`, `PLANTUML_ENCODER`) to avoid clashes when multiple plugins share a hook file.
 - **Idempotency** — if markers are already present, replace the section between them. If absent, append the section. Never duplicate.
 - **Template format** — templates contain only the marker-delimited fragment (no `#!/bin/bash` shebang). The setup script adds a shebang when creating a new hook file.
